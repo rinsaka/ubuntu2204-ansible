@@ -1,6 +1,6 @@
 test -z $(which ansible-playbook) && sudo apt install -y ansible
-sudo apt update
-sudo apt upgrade
+sudo apt -y update
+sudo apt -y upgrade
 
 # 日本語化
 sudo locale-gen ja_JP.UTF-8
