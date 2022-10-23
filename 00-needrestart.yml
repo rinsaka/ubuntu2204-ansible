@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  become: yes
+  vars:
+    - src_dir: src
+    - work_dir: work
+
+  tasks:
+    - name: copy disable_warning_restart.conf
+      copy: src=disable_warning_restart.conf dest=/etc/needrestart/conf.d/disable_warning_restart.conf backup=yes
+
+  handlers:
