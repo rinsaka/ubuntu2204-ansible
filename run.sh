@@ -12,13 +12,13 @@ sudo update-locale LANG=ja_JP.UTF-8 LANGUAGE=ja_JP:
 sudo timedatectl set-timezone Asia/Tokyo
 
 # man ページの日本語化
-sudo apt install manpages-ja manpages-ja-dev
+sudo apt install -y manpages-ja manpages-ja-dev
 
 # apt での表示の日本語化
 sudo LANG=ja_JP.UTF-8 apt update
 
 # mecab-ipadic-neologd のビルドに必要
-sudo apt install build-essential
+sudo apt install -y build-essential
 
 # apache
 ansible-playbook 01-apache.yml --connection=local
