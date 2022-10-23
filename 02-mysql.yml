@@ -9,6 +9,12 @@
     - name: install mysql-server
       apt:
         name: mysql-server
+    - name: リモート接続を許可
+      lineinfile:
+        path: /etc/mysql/mysql.conf.d/mysqld.cnf
+        regexp: '^bind-address'
+        line: '# bind-address          = 127.0.0.1'
+        state: present
     - name: start mysql and enabled
       service: name=mysql state=started enabled=yes
 
