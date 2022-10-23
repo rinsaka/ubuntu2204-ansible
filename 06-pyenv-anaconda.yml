@@ -35,7 +35,7 @@
       shell: /home/vagrant/.pyenv/bin/pyenv global {{anaconda_version}}
       become: no
     - name: edit .bashrc
-      shell: /usr/bin/echo 'export PATH="$PYENV_ROOT/versions/{{anaconda_version}}/bin/:$PATH"' >> ~/.bashrc
+      shell: /usr/bin/echo 'export PATH="$PYENV_ROOT/versions/{{anaconda_version}}/bin:$PATH"' >> ~/.bashrc
       become: no
     - name: Source
       shell: /usr/bin/sh ~/.bashrc
