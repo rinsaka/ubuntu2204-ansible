@@ -1,0 +1,22 @@
+---
+- hosts: localhost
+  become: yes
+  vars:
+    - src_dir: src
+    - work_dir: work
+
+  tasks:
+    - name: install mysql-server
+      apt:
+        name: mysql-server
+    - name: start mysql and enabled
+      service: name=mysql state=started enabled=yes
+
+  handlers:
+
+# How to use
+##  vagrant@ubuntu2204:~$ sudo mysql
+##  mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'xxxx';
+##  mysql> FLUSH PRIVILEGES;
+##  mysql> exit
+##  vagrant@ubuntu2204:~$

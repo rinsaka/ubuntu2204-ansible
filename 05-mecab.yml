@@ -1,0 +1,36 @@
+---
+- hosts: localhost
+  become: yes
+  vars:
+    - src_dir: src
+    - work_dir: work
+    - neologd_dir: neologd
+
+  tasks:
+    - name: install mecab
+      apt:
+        name: mecab
+    - name: install libmecab-dev
+      apt:
+        name: libmecab-dev
+    - name: install mecab-ipadic-utf8
+      apt:
+        name: mecab-ipadic-utf8
+
+    #### Install mecab-ipadic-neologd
+    - name: download mecab-ipadic-neologd
+      git:
+        repo: 'https://github.com/neologd/mecab-ipadic-neologd.git'
+        dest: '{{work_dir}}/{{neologd_dir}}'
+      become: no
+    - name: install NEologd
+      command: chdir={{work_dir}}/{{neologd_dir}} ./bin/install-mecab-ipadic-neologd -n -y
+      become: no
+    - name: delete NEologd dir
+      file: path={{work_dir}}/{{neologd_dir}} state=absent
+
+
+  handlers:
+
+# How to use
+##  mecab -d /usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd

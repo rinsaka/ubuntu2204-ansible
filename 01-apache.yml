@@ -1,0 +1,22 @@
+---
+- hosts: localhost
+  become: yes
+  vars:
+    - src_dir: src
+    - work_dir: work
+
+  tasks:
+    - name: install apache2
+      apt:
+        name: apache2
+    - name: install apache2-dev
+      apt:
+        name: apache2-dev
+    - name: start apache2 and enabled
+      service: name=apache2 state=started enabled=yes
+    - name: change owner
+      file: dest=/var/www/html owner=vagrant recurse=yes
+    - name: change group
+      file: dest=/var/www/html group=vagrant recurse=yes
+
+  handlers:
