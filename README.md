@@ -23,3 +23,9 @@ mysql> FLUSH PRIVILEGES;
 mysql> exit
 vagrant@ubuntu2204:~$
 ~~~
+
+## 再起動
+- カーネルが更新されるので再起動が必要
+~~~
+vagrant@ubuntu2204:~$ sudo reboot
+~~~
