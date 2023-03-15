@@ -33,5 +33,14 @@
     - name: install php-curl
       apt:
         name: php-curl
+    - name: install php-xmlrpc
+      apt:
+        name: php-xmlrpc
+    - name: install php-soap
+      apt:
+        name: php-soap
+    - name: install php-zip
+      apt:
+        name: php-zip
 
   handlers:
