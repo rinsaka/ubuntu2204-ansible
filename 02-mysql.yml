@@ -17,6 +17,8 @@
         state: present
     - name: start mysql and enabled
       service: name=mysql state=started enabled=yes
+    - name: アクセス権の変更
+      file: path=/run/mysqld owner=mysql group=mysql mode=0755
 
   handlers:
 
