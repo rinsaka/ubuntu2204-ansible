@@ -1,12 +1,16 @@
 ---
 - hosts: localhost
-  become: yes
+  become: no
   vars:
     # - anaconda_version: anaconda3-2019.10
     # - anaconda_version: anaconda3-2020.11
     - anaconda_version: anaconda3-2022.05
     - src_dir: src
     - work_dir: work
+    - pyenv_install: "{{ansible_facts['env']['HOME']}}/.pyenv/bin/pyenv install {{anaconda_version}}"
+    - pyenv_rehash: "{{ansible_facts['env']['HOME']}}/.pyenv/bin/pyenv rehash"
+    - pyenv_global: "{{ansible_facts['env']['HOME']}}/.pyenv/bin/pyenv global {{anaconda_version}}"
+    - conda_update: "{{ansible_facts['env']['HOME']}}/.pyenv/versions/{{anaconda_version}}/bin/conda update conda -y"
 
   tasks:
 
@@ -25,14 +29,14 @@
       become: no
 
     - name: Install Anaconda
-      shell: /home/vagrant/.pyenv/bin/pyenv install {{anaconda_version}}
+      shell: "{{pyenv_install}}"
       become: no
     - name: Rehash
-      shell: /home/vagrant/.pyenv/bin/pyenv rehash
+      shell: "{{pyenv_rehash}}"
       become: no
 
     - name: Set Global
-      shell: /home/vagrant/.pyenv/bin/pyenv global {{anaconda_version}}
+      shell: "{{pyenv_global}}"
       become: no
     - name: edit .bashrc
       shell: /usr/bin/echo 'export PATH="$PYENV_ROOT/versions/{{anaconda_version}}/bin:$PATH"' >> ~/.bashrc
@@ -42,7 +46,7 @@
       become: no
 
     - name: Update Conda
-      shell: /home/vagrant/.pyenv/versions/{{anaconda_version}}/bin/conda update conda -y
+      shell: "{{conda_update}}"
       become: no
 
   handlers:
