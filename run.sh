@@ -1,6 +1,4 @@
-# カーネルがアップグレードされた時の警告画面を表示しないようにする
-ansible-playbook 00-needrestart.yml --connection=local
-
+# update
 sudo apt -y update
 sudo apt -y upgrade
 
@@ -24,6 +22,9 @@ sudo apt install -y build-essential
 
 # ansible
 sudo apt install -y ansible
+
+# カーネルがアップグレードされた時の警告画面を表示しないようにする
+ansible-playbook 00-needrestart.yml --connection=local
 
 # apache
 ansible-playbook 01-apache.yml --connection=local
