@@ -1,4 +1,5 @@
-test -z $(which ansible-playbook)
+# test -z $(which ansible-playbook)
+
 sudo apt install -y ansible
 
 # カーネルがアップグレードされた時の警告画面を表示しないようにする
