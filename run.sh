@@ -1,7 +1,3 @@
-# test -z $(which ansible-playbook)
-
-sudo apt install -y ansible
-
 # カーネルがアップグレードされた時の警告画面を表示しないようにする
 ansible-playbook 00-needrestart.yml --connection=local
 
@@ -25,6 +21,9 @@ sudo LANG=ja_JP.UTF-8 apt update
 
 # mecab-ipadic-neologd のビルドに必要
 sudo apt install -y build-essential
+
+# ansible
+sudo apt install -y ansible
 
 # apache
 ansible-playbook 01-apache.yml --connection=local
