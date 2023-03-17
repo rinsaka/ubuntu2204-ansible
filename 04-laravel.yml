@@ -1,35 +1,38 @@
 ---
 - hosts: localhost
-  become: yes
+  become: no
   vars:
     - src_dir: src
     - work_dir: work
+    - documents_dir: "{{ansible_facts['env']['HOME']}}/Documents"
+    - laravel_dir: "{{ansible_facts['env']['HOME']}}/Documents/laravel"
+    - user_name: "{{ansible_facts['env']['USER']}}"
 
   tasks:
     - name: create documents directory
-      file: path=/home/vagrant/Documents state=directory owner=vagrant group=vagrant mode=0700
+      file: path="{{documents_dir}}" state=directory owner="{{user_name}}" group="{{user_name}}" mode=0700
       become: no
 
     - name: create documents/laravel directory
-      file: path=/home/vagrant/Documents/laravel state=directory owner=vagrant group=vagrant mode=0700
+      file: path="{{laravel_dir}}" state=directory owner="{{user_name}}" group="{{user_name}}" mode=0700
       become: no
 
     - name: download composer
       command: php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
       args:
-         chdir: /home/vagrant/Documents/laravel/
+         chdir: "{{laravel_dir}}"
       become: no
 
     - name: setup composer
       command: php composer-setup.php
       args:
-        chdir: /home/vagrant/Documents/laravel/
+        chdir: "{{laravel_dir}}"
       become: no
 
     - name: unlink composer-setup
       command: php -r "unlink('composer-setup.php');"
       args:
-        chdir: /home/vagrant/Documents/laravel/
+        chdir: "{{laravel_dir}}"
       become: no
 
   handlers:
