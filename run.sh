@@ -1,3 +1,9 @@
+# for vagrant
+test -z $(which ansible-playbook) && sudo apt install -y ansible
+
+# カーネルがアップグレードされた時の警告画面を表示しないようにする
+ansible-playbook 00-needrestart.yml --connection=local
+
 # update
 sudo apt -y update
 sudo apt -y upgrade
@@ -20,11 +26,8 @@ sudo LANG=ja_JP.UTF-8 apt update
 # mecab-ipadic-neologd のビルドに必要
 sudo apt install -y build-essential
 
-# ansible
+# ansible for wsl
 sudo apt install -y ansible
-
-# カーネルがアップグレードされた時の警告画面を表示しないようにする
-ansible-playbook 00-needrestart.yml --connection=local
 
 # apache
 ansible-playbook 01-apache.yml --connection=local
