@@ -29,6 +29,9 @@ sudo apt install -y build-essential
 # ansible for wsl
 sudo apt install -y ansible
 
+# unzip (for laravel)
+sudo apt install -y unzip
+
 # apache
 ansible-playbook 01-apache.yml --connection=local
 
