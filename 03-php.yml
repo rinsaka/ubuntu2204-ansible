@@ -48,5 +48,7 @@
     - name: install php-xdebug
       apt:
         name: php-xdebug
+    - name: copy xdebug.ini 
+      copy: src=xdebug.ini dest=/etc/php/8.1/mods-available/xdebug.ini backup=yes
 
   handlers:
