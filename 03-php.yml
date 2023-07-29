@@ -45,5 +45,8 @@
     - name: install php-sqlite3
       apt:
         name: php-sqlite3
+    - name: install php-xdebug
+      apt:
+        name: php-xdebug
 
   handlers:
