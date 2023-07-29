@@ -42,5 +42,8 @@
     - name: install php-zip
       apt:
         name: php-zip
+    - name: install php-sqlite3
+      apt:
+        name: php-sqlite3
 
   handlers:
