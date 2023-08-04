@@ -35,4 +35,30 @@
         chdir: "{{laravel_dir}}"
       become: no
 
+    - name: install node.js
+      apt:
+        name: nodejs
+      become: yes
+
+    - name: install npm
+      apt:
+        name: npm
+      become: yes
+
+    - name: npm cache clean
+      command: npm cache clean -f
+      become: yes
+
+    - name: npm install n -g
+      command: npm install n -g
+      become: yes
+
+    - name: n stable
+      command: n stable
+      become: yes
+
+    - name: n latest
+      command: n latest
+      become: yes
+
   handlers:
