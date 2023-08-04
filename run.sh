@@ -32,6 +32,9 @@ sudo apt install -y ansible
 # unzip (for laravel)
 sudo apt install -y unzip
 
+# curl
+sudo apt install -y curl
+
 # プロンプトを短く
 sed -i s/\\\\u@\\\\h\\\\\\[\\\\033\\[00m\\\\\\]:\\\\\\[\\\\033\\[01\;34m\\\\\\]\\\\w/\\\\u@:\\\\[\\\\033[01\;34m\\\\]\\\\W/ ~/.bashrc
 sed -i s/\\\\u@\\\\h:\\\\w\\\\/\\\\u@\\\\W\\\\/ ~/.bashrc
