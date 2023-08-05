@@ -36,9 +36,8 @@ sudo apt install -y unzip
 sudo apt install -y curl
 
 # プロンプトを短く
-sed -i s/\\\\u@\\\\h\\\\\\[\\\\033\\[00m\\\\\\]:\\\\\\[\\\\033\\[01\;34m\\\\\\]\\\\w/\\\\u@\\\\h:\\\\[\\\\033[01\;34m\\\\]\\\\W/ ~/.bashrc
-sed -i s/\\\\u@\\\\h:\\\\w\\\\/\\\\u@\\\\h:\\\\W\\\\/ ~/.bashrc
-
+sed -i s/\\\\u@\\\\h\\\\\\[\\\\033\\[00m\\\\\\]:\\\\\\[\\\\033\\[01\;34m\\\\\\]\\\\w/\\\\u@\\\\h\ \\\\[\\\\033[01\;34m\\\\]\\\\W\ / ~/.bashrc
+sed -i s/\\\\u@\\\\h:\\\\w\\\\/\\\\u@\\\\h\ \\\\W\\\\\ / ~/.bashrc
 
 # apache
 ansible-playbook 01-apache.yml --connection=local
