@@ -5,6 +5,11 @@
     - src_dir: src
     - work_dir: work
     - neologd_dir: neologd
+    - crf_url: https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7QVR6VXJ5dWExSTQ
+    - crf_ver: CRF++-0.58
+    - cabocha_url: http://cabocha.googlecode.com/files/cabocha-0.69.tar.bz2
+    - cabocha_ver: cabocha-0.69
+
 
   tasks:
     - name: install mecab
@@ -29,8 +34,64 @@
     - name: delete NEologd dir
       file: path={{work_dir}}/{{neologd_dir}} state=absent
 
+    #### Install CRF++-0.58 (CaboCha の make に必要)
+    - name: download CRF++-0.58
+      get_url: url={{crf_url}} dest={{work_dir}}
+      become: no
+    - name: unarchive CRF++-0.58.tar.gz
+      command: chdir={{work_dir}} tar xvzf {{crf_ver}}.tar.gz
+      become: no
+    - name: configure CRF++-0.58
+      command: chdir={{work_dir}}/{{crf_ver}} ./configure
+      become: no
+    - name: make CRF++-0.58
+      command: chdir={{work_dir}}/{{crf_ver}} make
+      become: no
+    - name: make install CRF++-0.58
+      command: chdir={{work_dir}}/{{crf_ver}} make install
+      become: yes
+    - name: sudo ldconfig
+      command: chdir={{work_dir}}/{{crf_ver}} ldconfig
+      become: yes
+    - name: delete CRF++-0.58 dir
+      file: path={{work_dir}}/{{crf_ver}} state=absent
+    - name: delete CRF++-0.58.tar.gz
+      file: path={{work_dir}}/{{crf_ver}}.tar.gz state=absent
+
+    ### Install CaboCha
+    ###########
+    #  次の3行がどうしても動作しないので，cabocha-0.69.tar.bz2 を
+    #   https://drive.google.com/drive/folders/0B4y35FiV1wh7cGRCUUJHVTNJRnM?resourcekey=0-ym0BJTHMkjw3y1AEgwwaxA
+    #  から手動でダウンロードして，work フォルダに scp コマンド（または Cyberduck 等を使って）コピーしたのち
+    #  残りの5つのセクションを有効にしてください．
+    ###########
+    ## - name: download CaboCha
+    ##   get_url: url={{cabocha_url}} dest={{work_dir}}
+    ##   become: yes
+    ####
+    # 下から有効に
+    ####
+    # - name: unarchive CaboCha
+    #   command: chdir={{work_dir}} tar xvjf {{cabocha_ver}}.tar.bz2
+    #   become: no
+    # - name: configure CaboCha
+    #   command: chdir={{work_dir}}/{{cabocha_ver}} ./configure --with-charset=UTF8
+    #   become: no
+    # - name: make CaboCha
+    #   command: chdir={{work_dir}}/{{cabocha_ver}} make
+    #   become: no
+    # - name: make install CaboCha
+    #   command: chdir={{work_dir}}/{{cabocha_ver}} make install
+    #   become: yes
+    # - name: edit .bashrc
+    #   shell: /usr/bin/echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib' >> ~/.bashrc
+    #   become: no
+    ######
+    # 上まで有効に
+    ######
 
   handlers:
 
 # How to use
 ##  mecab -d /usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd
+##  cabocha -d /usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd
