@@ -1,0 +1,50 @@
+---
+- hosts: localhost
+  become: yes
+  vars:
+    - src_dir: src
+    - work_dir: work
+
+  tasks:
+    - name: install gnupg
+      apt:
+        name: gnupg
+      become: yes
+    - name: install software-properties-common
+      apt:
+        name: software-properties-common
+      become: yes
+    - name: install ca-certificates
+      apt:
+        name: ca-certificates
+      become: yes
+    - name: install lsb-release
+      apt:
+        name: lsb-release
+      become: yes
+
+    - name: download mongo-server.asc
+      get_url:
+        url: https://www.mongodb.org/static/pgp/server-6.0.asc
+        dest: /etc/apt/trusted.gpg.d/mongodb-6.asc
+        mode: '0644'
+        force: true
+      become: yes
+
+    - name: tee mongodb-org.list
+      shell: echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu $(lsb_release -cs)/mongodb-org/6.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+      become: yes
+
+    - name: apt update
+      apt:
+        update_cache: yes
+
+    - name: install mongodb-org
+      apt:
+        name: mongodb-org
+      become: yes
+
+    - name: start mongod and enabled
+      service: name=mongod state=started enabled=yes
+
+  handlers:

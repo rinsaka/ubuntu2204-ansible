@@ -56,3 +56,6 @@ ansible-playbook 05-mecab.yml --connection=local
 
 # pyenv Anaconda
 ansible-playbook 06-pyenv-anaconda.yml --connection=local
+
+# MongoDB
+ansible-playbook 07-mongo.yml --connection=local
