@@ -45,12 +45,12 @@
         name: mongodb-org
       become: yes
 
-#    - name: enable authorization
-#      ansible.builtin.replace:
-#        path: /etc/mongod.conf
-#        regexp: '#security:'
-#        replace: 'security:\n  authorization: enabled'
-#      become: yes
+    - name: enable authorization
+      ansible.builtin.replace:
+        path: /etc/mongod.conf
+        regexp: '#security:'
+        replace: 'security:\n  authorization: enabled'
+      become: yes
 
     - name: start mongod and enabled
       service: name=mongod state=started enabled=yes
